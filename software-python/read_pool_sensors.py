@@ -39,7 +39,7 @@ def round_to_decimal(value, decimals):
 def read_ph():
     adc_result = ads1119.read_voltage(BUS_NUMBER, ADDRESS_PH)
     raw_value = adc_result.raw_value
-    input_voltage = adc_result.voltage * OP_AMP_GAIN_PH
+    input_voltage = adc_result.voltage / OP_AMP_GAIN_PH
     ph = 7.0 + input_voltage / VOLTS_PER_PH
     # compute all math before rounding, the decimal type doesn't support divide by float
     input_voltage = round_to_decimal(input_voltage, 3)
@@ -50,7 +50,7 @@ def read_ph():
 def read_orp():
     adc_result = ads1119.read_voltage(BUS_NUMBER, ADDRESS_ORP)
     raw_value = adc_result.raw_value
-    input_voltage = adc_result.voltage * OP_AMP_GAIN_ORP
+    input_voltage = adc_result.voltage / OP_AMP_GAIN_ORP
     orp = int(input_voltage * 1000)
     logger.info(f"Read ORP {orp}mV, raw_value=0x{adc_result.raw_value & 0xFFFF:04X}")
     return ORP_Result(orp, raw_value)
