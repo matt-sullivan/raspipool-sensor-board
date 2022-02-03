@@ -53,7 +53,7 @@ class DecimalEncoder(json.JSONEncoder):
         return super().encode(obj)
 
 def init_mqtt():
-    mqtt_client = mqtt.Client()
+    mqtt_client = mqtt.Client(UNIQUE_ID_PREFIX)
     mqtt_client.username_pw_set(config.mqtt_username, config.mqtt_password)
     mqtt_client.connect(BROKER)
     mqtt_client.loop_start()
@@ -94,4 +94,5 @@ if __name__ == "__main__":
         update_all_sensor_values(mqtt_client)
     else:
         print(f"Usage: {argv[0]} config|values")
+    mqtt_client.loop_stop()
     mqtt_client.disconnect()
