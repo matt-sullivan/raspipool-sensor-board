@@ -78,12 +78,14 @@ def update_sensor_values(mqtt_client, sensor_name, values):
 def update_all_sensor_configs(mqtt_client):
     update_sensor_config(mqtt_client, "pool_ph", "ph", None, None)
     update_sensor_config(mqtt_client, "pool_orp", "orp", "mV", None)
-    update_sensor_config(mqtt_client, "pool_temp", "temperature", "°C", "temperature")
+    # Disable temp sensor, it's now in mqtt_io
+    # update_sensor_config(mqtt_client, "pool_temp", "temperature", "°C", "temperature")
 
 def update_all_sensor_values(mqtt_client):
     update_sensor_values(mqtt_client, "pool_ph",pool_sensors.read_ph())
     update_sensor_values(mqtt_client, "pool_orp", pool_sensors.read_orp())
-    update_sensor_values(mqtt_client, "pool_temp", pool_sensors.read_temp())
+    # Disable temp sensor, it's now in mqtt_io
+    # update_sensor_values(mqtt_client, "pool_temp", pool_sensors.read_temp())
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
